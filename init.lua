@@ -96,8 +96,8 @@ vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 vim.opt.foldtext = ''
 vim.opt.foldlevel = 99
-vim.opt.foldlevelstart = 1
-vim.opt.foldnestmax = 4
+-- vim.opt.foldlevelstart = 1
+vim.opt.foldnestmax = 6
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
@@ -159,6 +159,15 @@ vim.o.splitbelow = true
 --   and `:help lua-options-guide`
 vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.o.expandtab = true
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.softtabstop = 4
+
+-- addustable fontsize NOTE: Not sure if this does anything
+vim.g.gui_font_default_size = 11
+vim.g.gui_font_size = vim.g.gui_font_default_size
+vim.g.gui_font_face = 'Fira Code Light'
 
 -- Preview substitutions live, as you type!
 vim.o.inccommand = 'split'
@@ -180,6 +189,9 @@ vim.o.confirm = true
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+
+-- use jk to snap into cmd mode
+vim.keymap.set('i', 'jk', '<ESC>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
@@ -681,7 +693,19 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        -- pyright = {},
+        -- pyright = {
+        --   settings = {
+        --     python = {
+        --       analysis = {
+        --         autoSearchPaths = true,
+        --         diagnosticMode = 'workspace',
+        --         useLibraryCodeForTypes = true,
+        --         typeCheckingMode = 'strict',
+        --       },
+        --     },
+        --   },
+        -- },
+        ruff = {},
         rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
